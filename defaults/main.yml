@@ -1,0 +1,7 @@
+---
+meslo_version: 1.2.1
+meslo_zip_tmp: "/tmp/meslo_{{meslo_version}}.zip"
+meslo_unzip_tmp: "/tmp"
+meslo_dz_zip_tmp: "/tmp/meslo_dz_{{meslo_version}}.zip"
+#meslo_dz_unzip_tmp: "/tmp/meslo_dz_{{meslo_version}}"
+meslo_dz_unzip_tmp: "/tmp"
