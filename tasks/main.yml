@@ -25,3 +25,24 @@
   synchronize:
     src: "{{meslo_unzip_tmp}}/Meslo LG v{{meslo_version}}/"
     dest: "~/.fonts/"
+
+- name: Download Mesloi DZ font
+  get_url:
+    url: "{{meslo_dz_zip_url}}"
+    dest: "{{meslo_dz_zip_tmp}}"
+
+- name: Unpack Meslo DZ font
+  unarchive:
+    copy: no
+    src: "{{meslo_dz_zip_tmp}}"
+    dest: "{{meslo_dz_unzip_tmp}}"
+
+- name: Remove Meslo PDF
+  file:
+    path: "{{meslo_dz_unzip_tmp}}/Meslo LG DZ v{{meslo_version}}/About Meslo LG DZ v{{meslo_version}}.pdf"
+    state: absent
+
+- name: Copy Meslo fonts
+  synchronize:
+    src: "{{meslo_dz_unzip_tmp}}/Meslo LG DZ v{{meslo_version}}/"
+    dest: "~/.fonts/"
