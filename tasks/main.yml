@@ -16,6 +16,12 @@
     src: "{{meslo_zip_tmp}}"
     dest: "{{meslo_unzip_tmp}}"
 
-- name: Copy Meslo font to ~/.fonts directory
-  copy:
-    src: "{{meslo_unzip_tmp}}/Meslo LG v{{meslo_version}}/
+- name: Remove Meslo PDF
+  file:
+    path: "{{meslo_unzip_tmp}}/Meslo LG v{{meslo_version}}/About Meslo LG v{{meslo_version}}.pdf"
+    state: absent
+
+- name: Copy Meslo fonts
+  synchronize:
+    src: "{{meslo_unzip_tmp}}/Meslo LG v{{meslo_version}}/"
+    dest: "~/.fonts/"
