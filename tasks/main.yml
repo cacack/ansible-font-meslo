@@ -4,45 +4,74 @@
   file:
     state: directory
     path: ~/.fonts
+  tags: [ "fonts", "meslo" ]
+
+- name: Check if Meslo font already exists
+  stat:
+    path: ~/.fonts/MesloLGL-Regular.ttf
+  register: meslo_font
+  tags: [ "fonts", "meslo" ]
 
 - name: Download Meslo font
   get_url:
     url: "{{meslo_zip_url}}"
     dest: "{{meslo_zip_tmp}}"
+  when: not meslo_font.stat.exists
+  tags: [ "fonts", "meslo" ]
 
 - name: Unpack Meslo font
   unarchive:
     copy: no
     src: "{{meslo_zip_tmp}}"
     dest: "{{meslo_unzip_tmp}}"
+  when: not meslo_font.stat.exists
+  tags: [ "fonts", "meslo" ]
 
 - name: Remove Meslo PDF
   file:
     path: "{{meslo_unzip_tmp}}/Meslo LG v{{meslo_version}}/About Meslo LG v{{meslo_version}}.pdf"
     state: absent
+  when: not meslo_font.stat.exists
+  tags: [ "fonts", "meslo" ]
 
 - name: Copy Meslo fonts
   synchronize:
     src: "{{meslo_unzip_tmp}}/Meslo LG v{{meslo_version}}/"
     dest: "~/.fonts/"
+  when: not meslo_font.stat.exists
+  tags: [ "fonts", "meslo" ]
 
-- name: Download Mesloi DZ font
+- name: Check if Meslo DotZero font already exists
+  stat:
+    path: ~/.fonts/MesloLGLDZ-Regular.ttf
+  register: meslo_dotzero_font
+  tags: [ "fonts", "meslo" ]
+
+- name: Download Meslo DZ font
   get_url:
     url: "{{meslo_dz_zip_url}}"
     dest: "{{meslo_dz_zip_tmp}}"
+  when: not meslo_dotzero_font.stat.exists
+  tags: [ "fonts", "meslo" ]
 
 - name: Unpack Meslo DZ font
   unarchive:
     copy: no
     src: "{{meslo_dz_zip_tmp}}"
     dest: "{{meslo_dz_unzip_tmp}}"
+  when: not meslo_dotzero_font.stat.exists
+  tags: [ "fonts", "meslo" ]
 
-- name: Remove Meslo PDF
+- name: Remove Meslo DZ PDF
   file:
     path: "{{meslo_dz_unzip_tmp}}/Meslo LG DZ v{{meslo_version}}/About Meslo LG DZ v{{meslo_version}}.pdf"
     state: absent
+  when: not meslo_dotzero_font.stat.exists
+  tags: [ "fonts", "meslo" ]
 
-- name: Copy Meslo fonts
+- name: Copy Meslo DZ fonts
   synchronize:
     src: "{{meslo_dz_unzip_tmp}}/Meslo LG DZ v{{meslo_version}}/"
     dest: "~/.fonts/"
+  when: not meslo_dotzero_font.stat.exists
+  tags: [ "fonts", "meslo" ]
