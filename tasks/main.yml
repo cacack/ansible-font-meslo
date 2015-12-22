@@ -6,7 +6,7 @@
     path: ~/.fonts
   tags: [ "fonts", "meslo" ]
 
-- name: Check if Meslo font already exists
+- name: Check if Meslo fonts exists
   stat:
     path: ~/.fonts/MesloLGL-Regular.ttf
   register: meslo_font
@@ -41,7 +41,7 @@
   when: not meslo_font.stat.exists
   tags: [ "fonts", "meslo" ]
 
-- name: Check if Meslo DotZero font already exists
+- name: Check if Meslo DotZero fonts exists
   stat:
     path: ~/.fonts/MesloLGLDZ-Regular.ttf
   register: meslo_dotzero_font
